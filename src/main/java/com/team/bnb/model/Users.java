@@ -80,13 +80,6 @@ public class Users implements Serializable {
         this.id = id;
     }
 
-    public Users(Integer id, String username, String password, String firstname, String lastname) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.firstname = firstname;
-        this.lastname = lastname;
-    }
 
     public Integer getId() {
         return id;
@@ -178,6 +171,15 @@ public class Users implements Serializable {
     @Override
     public String toString() {
         return "com.team.bnb.model.Users[ id=" + id + " ]";
+    }
+    
+    public Users(Users user) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
+    
     }
     
 }
