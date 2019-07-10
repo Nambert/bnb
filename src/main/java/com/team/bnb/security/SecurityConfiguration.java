@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -27,6 +28,7 @@ import org.springframework.web.servlet.view.JstlView;
  *
  * @author Haris
  */
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
 @EnableJpaRepositories(basePackageClasses = UsersRepository.class)
 @Configuration
@@ -35,30 +37,39 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private BnbUsersDetailService bnbUserDetailsService;
-       
+
     @Bean
     public PasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder() ;
+        return new PasswordEncoder() {
+
+            @Override
+            public String encode(CharSequence cs) {
+                return cs.toString();
+            }
+
+            @Override
+            public boolean matches(CharSequence cs, String string) {
+                return encode(cs).equals(string);
+            }
+        };
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(bnbUserDetailsService)
                 .passwordEncoder(getPasswordEncoder());
-       
+
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();//may cause problems on the jsp i dont know 
-        http.authorizeRequests().antMatchers("/welcome").permitAll();
+        http.csrf().disable();
+        http.authorizeRequests()
+                .antMatchers("**/secured/**").authenticated()
+                .anyRequest().permitAll()
+                .and()
+                .formLogin().permitAll();
     }
-    @Bean
-    public ViewResolver viewResolver() {
-        final InternalResourceViewResolver bean = new InternalResourceViewResolver();
-        bean.setViewClass(JstlView.class);
-        bean.setPrefix("/WEB-INF/jsp/");
-        bean.setSuffix(".jsp");
-        return bean;
     }
-}
+
+

@@ -6,9 +6,12 @@
 package com.team.bnb.controllers;
 
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,11 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @author Haris
  */
-@Controller
+@RequestMapping("/rest/whatever")
+@RestController
 public class whatever {
-    
-   @RequestMapping(value = "welcome",method = RequestMethod.GET)
-   public String getjsp(){
-     
-     return "welcome";}
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/secured/all")
+    public String secured(){
+    return "welcome";}
 }

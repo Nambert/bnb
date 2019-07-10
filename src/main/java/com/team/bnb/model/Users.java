@@ -7,10 +7,12 @@ package com.team.bnb.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -66,8 +68,8 @@ public class Users implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "lastname")
     private String lastname;
-    @ManyToMany(mappedBy = "usersCollection")
-    private Collection<Roles> rolesCollection;
+    @ManyToMany(mappedBy = "usersCollection",fetch = FetchType.EAGER)
+    private Set<Roles> rolesCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ownerId")
     private Collection<Storages> storagesCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientId")
@@ -122,11 +124,11 @@ public class Users implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Roles> getRolesCollection() {
+    public Set<Roles> getRolesCollection() {
         return rolesCollection;
     }
 
-    public void setRolesCollection(Collection<Roles> rolesCollection) {
+    public void setRolesCollection(Set<Roles> rolesCollection) {
         this.rolesCollection = rolesCollection;
     }
 
@@ -174,12 +176,12 @@ public class Users implements Serializable {
     }
     
     public Users(Users user) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.firstname = firstname;
-        this.lastname = lastname;
-    
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.firstname = user.getFirstname();
+        this.lastname = user.getLastname();
+        this.rolesCollection=user.getRolesCollection();
     }
     
 }
