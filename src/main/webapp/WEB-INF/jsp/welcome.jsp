@@ -13,5 +13,6 @@
     </head>
     <body>
         <h1>Hello World!</h1>
+        <a href="${pageContext.request.contextPath}/register">Register</a>
     </body>
 </html>

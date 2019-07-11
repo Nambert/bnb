@@ -68,7 +68,16 @@ public class Users implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "lastname")
     private String lastname;
-    @ManyToMany(mappedBy = "usersCollection",fetch = FetchType.EAGER)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "email")
+    private String email;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "balance")
+    private int balance;
+    @ManyToMany(mappedBy = "usersCollection", fetch = FetchType.EAGER)
     private Set<Roles> rolesCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ownerId")
     private Collection<Storages> storagesCollection;
@@ -81,7 +90,6 @@ public class Users implements Serializable {
     public Users(Integer id) {
         this.id = id;
     }
-
 
     public Integer getId() {
         return id;
@@ -121,6 +129,22 @@ public class Users implements Serializable {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
     }
 
     @XmlTransient
@@ -174,14 +198,16 @@ public class Users implements Serializable {
     public String toString() {
         return "com.team.bnb.model.Users[ id=" + id + " ]";
     }
-    
+
     public Users(Users user) {
         this.id = user.getId();
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.firstname = user.getFirstname();
         this.lastname = user.getLastname();
-        this.rolesCollection=user.getRolesCollection();
+        this.email = user.getEmail();
+        this.balance = user.getBalance();
+        this.rolesCollection = user.getRolesCollection();
     }
-    
+
 }
