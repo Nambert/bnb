@@ -12,6 +12,7 @@ import com.team.bnb.services.TestService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -42,7 +43,7 @@ public class whatever {
 //    public String secured(){
 //    return "welcome";}
     
-    @RequestMapping("welcome")
+    @GetMapping("/welcome")
     public String welcome() {
         
         return "welcome";
@@ -59,6 +60,8 @@ public class whatever {
     @RequestMapping(value = "doRegister", method = RequestMethod.POST)
     public String doRegister(ModelMap mm, @ModelAttribute("user") @Valid Users u) {
         u.setBalance(5000);
+        String encodedPassword=BCrypt.hashpw(u.getPassword(), BCrypt.gensalt());
+        u.setPassword(encodedPassword);
         testService.insert(u);
         return "redirect:/welcome";
     }

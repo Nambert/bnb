@@ -6,6 +6,7 @@
 package com.team.bnb.services;
 
 import com.team.bnb.model.Users;
+import com.team.bnb.repositories.ClientsRepository;
 import com.team.bnb.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,11 @@ public class TestService {
 
     @Autowired
     UsersRepository Ur;
-    
+    @Autowired 
+    ClientsRepository cr;
     public void insert(Users u) {
+        
         Ur.save(u);
+        cr.insertToUserRole(u.getId(), 1);
     }
 }

@@ -40,19 +40,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
-        return new PasswordEncoder() {
+        return new BCryptPasswordEncoder(); }
 
-            @Override
-            public String encode(CharSequence cs) {
-                return cs.toString();
-            }
-
-            @Override
-            public boolean matches(CharSequence cs, String string) {
-                return encode(cs).equals(string);
-            }
-        };
-    }
+      
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -65,7 +55,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("**/secured/**").authenticated()
+                .antMatchers("/welcome").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin().permitAll();
