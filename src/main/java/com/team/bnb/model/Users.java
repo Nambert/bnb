@@ -6,7 +6,9 @@
 package com.team.bnb.model;
 
 import java.io.Serializable;
+
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -78,7 +80,7 @@ public class Users implements Serializable {
     @Column(name = "balance")
     private int balance;
     @ManyToMany(mappedBy = "usersCollection", fetch = FetchType.EAGER)
-    private Set<Roles> rolesCollection;
+    private List<Roles> rolesCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ownerId")
     private Collection<Storages> storagesCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientId")
@@ -148,11 +150,11 @@ public class Users implements Serializable {
     }
 
     @XmlTransient
-    public Set<Roles> getRolesCollection() {
+    public List<Roles> getRolesCollection() {
         return rolesCollection;
     }
 
-    public void setRolesCollection(Set<Roles> rolesCollection) {
+    public void setRolesCollection(List<Roles> rolesCollection) {
         this.rolesCollection = rolesCollection;
     }
 

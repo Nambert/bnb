@@ -3,7 +3,7 @@
     Created on : Jul 8, 2019, 4:40:33 PM
     Author     : Haris
 --%>
-
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,7 +12,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+       
         <a href="${pageContext.request.contextPath}/register">Register</a>
+        <a href="${pageContext.request.contextPath}/customlogin">Login</a>
     </body>
 </html>

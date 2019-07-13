@@ -31,7 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 //@RequestMapping("/rest/whatever")
 //@RestController   //na to kanw Controller
 @Controller
-public class whatever {
+public class RegisterController {
     
     
     
