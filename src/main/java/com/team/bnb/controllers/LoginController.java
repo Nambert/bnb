@@ -10,6 +10,7 @@ import com.team.bnb.model.Roles;
 import com.team.bnb.model.Users;
 import com.team.bnb.services.BnbUsersDetailService;
 import java.util.Set;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -35,13 +36,18 @@ public class LoginController {
     }
 
     @PostMapping("/dologin")
-    public String dologin(ModelMap mm, WebRequest request) {
+    public String dologin(ModelMap mm, HttpServletRequest request) {
         String username = request.getParameter("username");
         Users user = (BnbUserDetails) bnbUsersDetailService.loadUserByUsername(username);
         if (user.getRolesCollection().get(0).getId().equals(1)) {
+            request.getSession().setAttribute("user", user);
             return "admin";
-        } else {
+        } else if (user.getRolesCollection().get(0).getId().equals(3)) {
+            request.getSession().setAttribute("user", user);
             return "host";
-        }
-   }
+        } else if (user.getRolesCollection().get(0).getId().equals(2)) {
+             request.getSession().setAttribute("user", user);
+            return "client";
+        }else return "welcome";
+    }
 }
