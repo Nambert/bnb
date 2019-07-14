@@ -9,8 +9,8 @@ import com.team.bnb.model.Cities;
 import com.team.bnb.model.Storages;
 import com.team.bnb.model.Users;
 import com.team.bnb.repositories.UsersRepository;
-import com.team.bnb.services.CitiesServise;
-import com.team.bnb.services.StoragesServise;
+import com.team.bnb.services.CitiesService;
+import com.team.bnb.services.StoragesService;
 import com.team.bnb.services.TestService;
 import java.util.List;
 import javax.validation.Valid;
@@ -29,10 +29,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HostController {
     
     @Autowired
-    CitiesServise citiesServise;
+    CitiesService citiesService;
     
     @Autowired
-    StoragesServise storagesServise;
+    StoragesService storagesService;
     
     
     @RequestMapping(value = "insertCity", method = RequestMethod.GET)
@@ -44,13 +44,13 @@ public class HostController {
 
     @RequestMapping(value = "doInsertCity", method = RequestMethod.POST)
     public String doInsertCity(ModelMap mm, @ModelAttribute("city") @Valid Cities c) {
-        citiesServise.insert(c);
+        citiesService.insert(c);
         return "insertCity";
     }
     
     @RequestMapping(value = "viewCities", method = RequestMethod.GET)
     public String viewAllCities (ModelMap mm) {
-        List<Cities> list = citiesServise.viewAllCities();
+        List<Cities> list = citiesService.viewAllCities();
         mm.addAttribute("list", list);
         return "viewCities";
     }
@@ -61,13 +61,13 @@ public class HostController {
     public String createStorage(ModelMap mm) {
         Storages s = new Storages();
         mm.addAttribute("storage", s);
-        mm.addAttribute("list", citiesServise.viewAllCities());
+        mm.addAttribute("list", citiesService.viewAllCities());
         return "createStorage";
     }
 
     @RequestMapping(value = "doCreateStorage", method = RequestMethod.POST)
     public String doCreateStorage(ModelMap mm, @ModelAttribute("storage") @Valid Storages s) {
-        storagesServise.insert(s);
+        storagesService.insert(s);
         return "createStorage";
     }
     

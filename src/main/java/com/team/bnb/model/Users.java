@@ -211,5 +211,5 @@ public class Users implements Serializable {
         this.balance = user.getBalance();
         this.rolesCollection = user.getRolesCollection();
     }
-
+    
 }
