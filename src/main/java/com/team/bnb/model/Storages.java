@@ -53,7 +53,7 @@ public class Storages implements Serializable {
     private String adress;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "postal code")
+    @Column(name = "postal_code")
     private int postalCode;
     @Basic(optional = false)
     @NotNull
