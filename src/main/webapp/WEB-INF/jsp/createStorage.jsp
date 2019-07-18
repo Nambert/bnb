@@ -16,7 +16,7 @@
         <form:form method="POST" modelAttribute="storage" action="${pageContext.request.contextPath}/doCreateStorage">
             <table>
                 <tr>
-                    <td>ADRESS</td>
+                    <td>ADDRESS</td>
                     <td><form:input path="adress" /></td>
                 </tr>
                 <tr>

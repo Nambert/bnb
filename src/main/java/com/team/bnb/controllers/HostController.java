@@ -27,14 +27,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class HostController {
-    
+
     @Autowired
     CitiesService citiesService;
-    
+
     @Autowired
     StoragesService storagesService;
-    
-    
+
     @RequestMapping(value = "insertCity", method = RequestMethod.GET)
     public String insertCity(ModelMap mm) {
         Cities c = new Cities();
@@ -47,16 +46,14 @@ public class HostController {
         citiesService.insert(c);
         return "insertCity";
     }
-    
+
     @RequestMapping(value = "viewCities", method = RequestMethod.GET)
-    public String viewAllCities (ModelMap mm) {
+    public String viewAllCities(ModelMap mm) {
         List<Cities> list = citiesService.viewAllCities();
         mm.addAttribute("list", list);
         return "viewCities";
     }
-    
-    
-    
+
     @RequestMapping(value = "createStorage", method = RequestMethod.GET)
     public String createStorage(ModelMap mm) {
         Storages s = new Storages();
@@ -70,5 +67,9 @@ public class HostController {
         storagesService.insert(s);
         return "createStorage";
     }
-    
+
+    @RequestMapping(value = "loadHost", method = RequestMethod.GET)
+    public String loadHost() {
+        return "host";
+    }
 }

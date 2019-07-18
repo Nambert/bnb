@@ -13,9 +13,16 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello host!</h1>
+        <h1>Hello ${user.username}!</h1>
         <a href="${pageContext.request.contextPath}/insertCity">Insert City</a>
         <a href="${pageContext.request.contextPath}/createStorage">Create Storage</a>
-        <a href="${pageContext.request.contextPath}/viewCities">View Cities</a>
+        <a href="${pageContext.request.contextPath}/viewCities">View Cities</a><br>
+        <c:url var="logoutUrl" value="/j_spring_security_logout" />
+    <form action="${logoutUrl}" id="logout" method="post">
+        <input type="hidden" name="${_csrf.parameterName}"
+            value="${_csrf.token}" />
+    </form>
+    <a href="#" onclick="document.getElementById('logout').submit();">Logout</a>
+        
     </body>
 </html>

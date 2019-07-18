@@ -13,6 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -40,22 +41,30 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder(); }
-
-      
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(bnbUserDetailsService)
-                .passwordEncoder(getPasswordEncoder());
-
+        return new BCryptPasswordEncoder();
     }
+
+   @Override
+   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+       auth.authenticationProvider(authenticationProvider());
+
+   }
+    @Bean
+   public DaoAuthenticationProvider authenticationProvider() {
+       DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+       authProvider.setUserDetailsService(bnbUserDetailsService);
+       authProvider.setPasswordEncoder(getPasswordEncoder());
+       return authProvider;
+   }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        
-    }
-    }
+        http.csrf()
+                .disable()
+                .logout()
+                .logoutUrl("/j_spring_security_logout")
+                .logoutSuccessUrl("/customlogin")
+                .invalidateHttpSession(true);
 
-
+    }
+}
