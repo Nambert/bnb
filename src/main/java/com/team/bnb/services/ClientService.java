@@ -5,26 +5,19 @@
  */
 package com.team.bnb.services;
 
-import com.team.bnb.model.Users;
-import com.team.bnb.repositories.ClientsRepository;
-import com.team.bnb.repositories.UsersRepository;
+import com.team.bnb.repositories.StoragesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  *
- * @author Kosta
+ * @author Haris
  */
 @Service
-public class TestService {
+public class ClientService {
 
     @Autowired
-    UsersRepository Ur;
-    @Autowired 
-    ClientsRepository cr;
-    public void insert(Users u) {
-        
-        Ur.save(u);
-        cr.insertToUserRole(u.getId(), 2);
-    }
+    StoragesRepository storagesRepository;
+    
+    
 }

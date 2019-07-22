@@ -47,7 +47,7 @@ public class LoginController {
             return "redirect:/loadHost";
         } else if (user.getRolesCollection().get(0).getId().equals(2)) {
              request.getSession().setAttribute("user", user);
-            return "client";
+            return "redirect:/client/loadClient";
         }else return "welcome";
     }
 }

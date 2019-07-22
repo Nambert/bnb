@@ -20,15 +20,20 @@ import org.springframework.stereotype.Service;
 public class StoragesService {
 
     @Autowired
-    StoragesRepository sr;
+    StoragesRepository storagesRepository;
 
-     public void insert(Storages s) {
-        sr.save(s);
+    public void insert(Storages s) {
+        storagesRepository.save(s);
     }
-    
+
     public List<Storages> viewAllStorages() {
-        List<Storages> result = sr.findAll();
-      
+        List<Storages> result = storagesRepository.findAll();
+
         return result;
+    }
+
+    public List<Storages> viewStoragesByCity(int id) {
+        List<Storages> storages = storagesRepository.findBycityId(id);
+        return storages;
     }
 }
