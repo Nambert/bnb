@@ -9,6 +9,7 @@ import com.team.bnb.model.Users;
 import com.team.bnb.repositories.ClientsRepository;
 import com.team.bnb.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,15 +17,18 @@ import org.springframework.stereotype.Service;
  * @author Kosta
  */
 @Service
-public class TestService {
+public class UsersService {
 
     @Autowired
-    UsersRepository Ur;
-    @Autowired 
-    ClientsRepository cr;
+    UsersRepository usersRepository;
+    @Autowired
+    ClientsRepository clientsRepository;
+
     public void insert(Users u) {
-        
-        Ur.save(u);
-        cr.insertToUserRole(u.getId(), 2);
+        u.setBalance(5000);
+        String encodedPassword = BCrypt.hashpw(u.getPassword(), BCrypt.gensalt());
+        u.setPassword(encodedPassword);
+        usersRepository.save(u);
+        clientsRepository.insertToUserRole(u.getId(), 2);
     }
 }

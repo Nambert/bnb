@@ -7,12 +7,10 @@ package com.team.bnb.controllers;
 
 import com.team.bnb.model.Cities;
 import com.team.bnb.model.Storages;
-import com.team.bnb.model.Users;
-import com.team.bnb.repositories.UsersRepository;
 import com.team.bnb.services.CitiesService;
 import com.team.bnb.services.StoragesService;
-import com.team.bnb.services.TestService;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -72,4 +70,10 @@ public class HostController {
     public String loadHost() {
         return "host";
     }
+
+    @RequestMapping(value = "viewMyStorages",method = RequestMethod.GET)
+    public String viewMyStorages(ModelMap mm,HttpServletRequest session){
+   List<Storages> storages=storagesService.viewStoragesByOwner((int) session.getSession().getAttribute("id"));
+   mm.addAttribute("mystorages", storages);
+    return "viewMyStorages";}
 }

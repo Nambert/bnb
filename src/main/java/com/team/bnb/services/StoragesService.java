@@ -32,8 +32,13 @@ public class StoragesService {
         return result;
     }
 
-    public List<Storages> viewStoragesByCity(int id) {
-        List<Storages> storages = storagesRepository.findBycityId(id);
+    public List<Storages> viewStoragesByCity(int city_id) {
+        List<Storages> storages = storagesRepository.findBycityId(city_id);
+        return storages;
+    }
+
+    public List<Storages> viewStoragesByOwner(int owner_id) {
+        List<Storages> storages = storagesRepository.findByOwnerId(owner_id);
         return storages;
     }
 }

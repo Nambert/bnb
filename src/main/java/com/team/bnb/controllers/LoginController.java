@@ -6,18 +6,14 @@
 package com.team.bnb.controllers;
 
 import com.team.bnb.model.BnbUserDetails;
-import com.team.bnb.model.Roles;
 import com.team.bnb.model.Users;
 import com.team.bnb.services.BnbUsersDetailService;
-import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.context.request.WebRequest;
 
 /**
  *
@@ -43,7 +39,8 @@ public class LoginController {
             request.getSession().setAttribute("user", user);
             return "admin";
         } else if (user.getRolesCollection().get(0).getId().equals(3)) {
-            request.getSession().setAttribute("user", user);
+            request.getSession().setAttribute("username", user.getUsername());
+            request.getSession().setAttribute("id", user.getId());
             return "redirect:/loadHost";
         } else if (user.getRolesCollection().get(0).getId().equals(2)) {
              request.getSession().setAttribute("user", user);

@@ -8,7 +8,7 @@ package com.team.bnb.controllers;
 
 import com.team.bnb.model.Users;
 import com.team.bnb.repositories.UsersRepository;
-import com.team.bnb.services.TestService;
+import com.team.bnb.services.UsersService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -36,7 +36,7 @@ public class RegisterController {
     
     
     @Autowired
-    TestService testService;
+    UsersService usersService;
     
 //    @PreAuthorize("hasAnyRole('ADMIN')")
 //    @GetMapping("/secured/all")
@@ -59,10 +59,7 @@ public class RegisterController {
 
     @RequestMapping(value = "doRegister", method = RequestMethod.POST)
     public String doRegister(ModelMap mm, @ModelAttribute("user") @Valid Users u) {
-        u.setBalance(5000);
-        String encodedPassword=BCrypt.hashpw(u.getPassword(), BCrypt.gensalt());
-        u.setPassword(encodedPassword);
-        testService.insert(u);
+        usersService.insert(u);
         return "redirect:/welcome";
     }
     
