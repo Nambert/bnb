@@ -5,10 +5,10 @@
  */
 package com.team.bnb.controllers;
 
-
 import com.team.bnb.model.Users;
 import com.team.bnb.repositories.UsersRepository;
 import com.team.bnb.services.UsersService;
+import com.team.bnb.validators.UsersValidator;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,23 +21,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
+
+
 
 /**
  *
  * @author Haris
  */
-
-//@RequestMapping("/rest/whatever")
-//@RestController   //na to kanw Controller
 @Controller
 public class RegisterController {
-    
-    
-    
+
     @Autowired
     UsersService usersService;
-    
+
+    @Autowired
+    UsersValidator usersValidator;
+
 //    @PreAuthorize("hasAnyRole('ADMIN')")
 //    @GetMapping("/secured/all")
 //    public String secured(){
@@ -45,22 +46,44 @@ public class RegisterController {
     
     @GetMapping("/welcome")
     public String welcome() {
-        
+
         return "welcome";
     }
-    
-    
-    @RequestMapping(value = "register", method = RequestMethod.GET)
+
+    @RequestMapping(value = "registerClient", method = RequestMethod.GET)
     public String insertUser(ModelMap mm) {
         Users u = new Users();
         mm.addAttribute("user", u);
-        return "register";
+        return "registerClient";
     }
 
-    @RequestMapping(value = "doRegister", method = RequestMethod.POST)
-    public String doRegister(ModelMap mm, @ModelAttribute("user") @Valid Users u) {
-        usersService.insert(u);
+    @RequestMapping(value = "doRegisterClient", method = RequestMethod.POST)
+    public String doRegister(ModelMap mm, @ModelAttribute("user") @Valid Users u, BindingResult br) {
+        usersValidator.validate(u, br);
+        if (br.hasErrors()) {
+            return "registerClient";
+        } else {
+            usersService.insertClient(u);
+        }
         return "redirect:/welcome";
     }
     
+    @RequestMapping(value = "registerHost", method = RequestMethod.GET)
+    public String insertHost(ModelMap mm) {
+        Users u = new Users();
+        mm.addAttribute("user", u);
+        return "registerHost";
+    }
+    
+    @RequestMapping(value = "doRegisterHost", method = RequestMethod.POST)
+    public String doRegisterHost(ModelMap mm, @ModelAttribute("user") @Valid Users u, BindingResult br) {
+        usersValidator.validate(u, br);
+        if (br.hasErrors()) {
+            return "registerHost";
+        } else {
+            usersService.insertHost(u);
+        }
+        return "redirect:/welcome";
+    }
+
 }
