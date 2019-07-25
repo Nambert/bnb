@@ -9,6 +9,7 @@ import com.team.bnb.model.BnbUserDetails;
 import com.team.bnb.model.Users;
 import com.team.bnb.repositories.UsersRepository;
 import java.util.Optional;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,6 +32,7 @@ public class BnbUsersDetailService implements UserDetailsService{
        Optional<Users> user=userRepo.findByUsername(username);
        
        user.orElseThrow(()->new UsernameNotFoundException("Username not found"));
+       
        return user.map(BnbUserDetails::new).get();
     }
     

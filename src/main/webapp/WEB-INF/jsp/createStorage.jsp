@@ -28,7 +28,7 @@
                     <td><form:input path="space" /></td>
                 </tr>
                 <tr>
-                    <td><form:input type="hidden" path="ownerId" value="${user.id}" /></td>
+                    <td><form:input type="hidden" path="ownerId" value="${id}" /></td>
                 </tr>
                 <tr>
                     <td>

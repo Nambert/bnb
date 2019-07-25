@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Kosta
  */
 @Controller
+@RequestMapping("/host")
 public class HostController {
 
     @Autowired

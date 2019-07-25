@@ -12,7 +12,7 @@
         <title>Client Page</title>
     </head>
     <body>
-        <h1>Hello ${user.username}!</h1><br>
+        <h1>Hello ${username}!</h1><br>
 
         <h1>Start your Reservation!</h1><br>
 

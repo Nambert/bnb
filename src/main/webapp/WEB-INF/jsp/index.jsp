@@ -12,6 +12,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <a href="${pageContext.request.contextPath}/welcome">Welcome</a>
+       <a href="${pageContext.request.contextPath}/register">Register</a>
+       <a href="${pageContext.request.contextPath}/client/loadClient">Reserve Now!</a>
+        <a href="${pageContext.request.contextPath}/host/loadHost">Manage Your Places!</a>
     </body>
 </html>
