@@ -13,7 +13,8 @@
     </head>
     <body>
        
-        <a href="${pageContext.request.contextPath}/register">Register</a>
+        <a href="${pageContext.request.contextPath}/registerClient">Register</a> /
+        <a href="${pageContext.request.contextPath}/registerHost">Become a Host</a><br>
         <a href="${pageContext.request.contextPath}/customlogin">Login</a>
     </body>
 </html>
