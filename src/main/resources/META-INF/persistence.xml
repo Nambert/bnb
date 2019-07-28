@@ -4,6 +4,7 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.team.bnb.model.Cities</class>
     <class>com.team.bnb.model.Storages</class>
+    <class>com.team.bnb.model.Activation</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://5.189.135.166:3011/BNB?zeroDateTimeBehavior=convertToNull"/>

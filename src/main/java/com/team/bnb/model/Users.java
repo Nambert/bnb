@@ -44,19 +44,13 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Users.findByLastname", query = "SELECT u FROM Users u WHERE u.lastname = :lastname")})
 public class Users implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "username")
     private String username;
     @Basic(optional = false)
-    @NotNull
+    @NotNull()
     @Size(min = 1, max = 100)
     @Column(name = "password")
     private String password;
@@ -70,6 +64,7 @@ public class Users implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "lastname")
     private String lastname;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -79,6 +74,16 @@ public class Users implements Serializable {
     @NotNull
     @Column(name = "balance")
     private int balance;
+    @Column(name = "active")
+    private Integer active;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Collection<Activation> activationCollection;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
     @ManyToMany(mappedBy = "usersCollection", fetch = FetchType.EAGER)
     private List<Roles> rolesCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ownerId")
@@ -101,53 +106,6 @@ public class Users implements Serializable {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getBalance() {
-        return balance;
-    }
-
-    public void setBalance(int balance) {
-        this.balance = balance;
-    }
 
     @XmlTransient
     public List<Roles> getRolesCollection() {
@@ -210,6 +168,71 @@ public class Users implements Serializable {
         this.email = user.getEmail();
         this.balance = user.getBalance();
         this.rolesCollection = user.getRolesCollection();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
+
+    public Integer getActive() {
+        return active;
+    }
+
+    public void setActive(Integer active) {
+        this.active = active;
+    }
+
+    @XmlTransient
+    public Collection<Activation> getActivationCollection() {
+        return activationCollection;
+    }
+
+    public void setActivationCollection(Collection<Activation> activationCollection) {
+        this.activationCollection = activationCollection;
     }
     
 }

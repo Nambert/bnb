@@ -23,7 +23,7 @@ public class UsersService {
 
     public void insertClient(Users u) {
         u.setBalance(5000);
-        String encodedPassword = BCrypt.hashpw(u.getPassword(), BCrypt.gensalt());
+        String encodedPassword = BCrypt.hashpw(u.getPassword(), BCrypt.gensalt(12));
         u.setPassword(encodedPassword);
         usersRepository.save(u);
         usersRepository.insertToUserRole(u.getId(), 2);
@@ -31,7 +31,7 @@ public class UsersService {
     
     public void insertHost(Users u) {
         u.setBalance(5000);
-        String encodedPassword = BCrypt.hashpw(u.getPassword(), BCrypt.gensalt());
+        String encodedPassword = BCrypt.hashpw(u.getPassword(), BCrypt.gensalt(12));
         u.setPassword(encodedPassword);
         usersRepository.save(u);
         usersRepository.insertToUserRole(u.getId(), 3);

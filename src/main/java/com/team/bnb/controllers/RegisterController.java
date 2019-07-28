@@ -63,6 +63,7 @@ public class RegisterController {
         if (br.hasErrors()) {
             return "registerClient";
         } else {
+            String encodedPassword = BCrypt.hashpw(u.getPassword(), BCrypt.gensalt(12));
             usersService.insertClient(u);
         }
         return "redirect:/welcome";
@@ -81,6 +82,7 @@ public class RegisterController {
         if (br.hasErrors()) {
             return "registerHost";
         } else {
+            String encodedPassword = BCrypt.hashpw(u.getPassword(), BCrypt.gensalt(12));
             usersService.insertHost(u);
         }
         return "redirect:/welcome";
