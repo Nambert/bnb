@@ -27,8 +27,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
-
-
 /**
  *
  * @author Haris
@@ -41,7 +39,7 @@ public class RegisterController {
 
     @Autowired
     UsersValidator usersValidator;
-    
+
     @Autowired
     ActivationService activationService;
 
@@ -49,7 +47,6 @@ public class RegisterController {
 //    @GetMapping("/secured/all")
 //    public String secured(){
 //    return "welcome";}
-    
     @GetMapping("/welcome")
     public String welcome() {
 
@@ -70,21 +67,23 @@ public class RegisterController {
             return "registerClient";
         } else {
             String serial = BCrypt.hashpw(u.getPassword(), BCrypt.gensalt(12));
+            serial = serial.replace('.', '1');
+            serial = serial.replace('/', '1');
             usersService.insertClient(u);
-            u=usersService.findById(u);
+            u = usersService.findById(u);
             activationService.insertActivation(u, serial);
             EmailConfirmation.sendConfirmationEmail(u.getEmail(), serial);
         }
         return "redirect:/welcome";
     }
-    
+
     @RequestMapping(value = "registerHost", method = RequestMethod.GET)
     public String insertHost(ModelMap mm) {
         Users u = new Users();
         mm.addAttribute("user", u);
         return "registerHost";
     }
-    
+
     @RequestMapping(value = "doRegisterHost", method = RequestMethod.POST)
     public String doRegisterHost(ModelMap mm, @ModelAttribute("user") @Valid Users u, BindingResult br) {
         usersValidator.validate(u, br);
@@ -92,21 +91,24 @@ public class RegisterController {
             return "registerHost";
         } else {
             String serial = BCrypt.hashpw(u.getPassword(), BCrypt.gensalt(12));
+            serial = serial.replace('.', '1');
+            serial = serial.replace('/', '1');
             usersService.insertHost(u);
-            u=usersService.findById(u);
+            u = usersService.findById(u);
             activationService.insertActivation(u, serial);
             EmailConfirmation.sendConfirmationEmail(u.getEmail(), serial);
         }
         return "redirect:/welcome";
     }
-    
-   @GetMapping("activation/{serial}")
-    public String activation(ModelMap mm, @PathVariable("serial") String serial){
-        boolean success=false;
-        success=activationService.activateUser(serial);
+
+    @GetMapping("activation/{serial}")
+    public String activation(ModelMap mm, @PathVariable("serial") String serial) {
+        boolean success = false;
+        success = activationService.activateUser(serial);
         if (success) {
             return "success";
-        }else
+        } else {
             return "fail";
+        }
     }
 }

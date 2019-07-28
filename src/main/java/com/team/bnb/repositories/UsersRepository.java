@@ -30,6 +30,6 @@ public interface UsersRepository extends JpaRepository<Users,Integer>{
     
     @Transactional
     @Modifying
-    @Query(value = "insert into users (active) values(1) where id=:id", nativeQuery = true)
+    @Query(value = "update users set active=1 where id=:id", nativeQuery = true)
     public void activateUser(@Param("id") int id);
 }
