@@ -23,6 +23,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.hibernate.annotations.CreationTimestamp;
 
 /**
  *
@@ -50,6 +51,7 @@ public class Activation implements Serializable {
     @Column(name = "serial")
     private String serial;
     @Column(name = "date")
+    @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
     @JoinColumn(name = "user_id", referencedColumnName = "id")

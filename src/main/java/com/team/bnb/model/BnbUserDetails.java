@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 public class BnbUserDetails extends Users implements UserDetails{
 
+    private Users user;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
@@ -53,7 +54,8 @@ public class BnbUserDetails extends Users implements UserDetails{
 
     @Override
     public boolean isEnabled() {
-        if (super.getActive()==1){
+        System.out.println(user.getActive());
+        if (user.getActive()==1){
            return true;
        }else{
            return false;
@@ -62,6 +64,12 @@ public class BnbUserDetails extends Users implements UserDetails{
 
     public BnbUserDetails(Users user) {
         super(user);
+        this.user=user;
     }
     
 }
+
+
+
+
+
