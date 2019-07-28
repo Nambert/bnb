@@ -70,8 +70,10 @@ public class RegisterController {
             return "registerClient";
         } else {
             String serial = BCrypt.hashpw(u.getPassword(), BCrypt.gensalt(12));
-            EmailConfirmation.sendConfirmationEmail(u.getEmail(), serial);
             usersService.insertClient(u);
+            u=usersService.findById(u);
+            activationService.insertActivation(u, serial);
+            EmailConfirmation.sendConfirmationEmail(u.getEmail(), serial);
         }
         return "redirect:/welcome";
     }
@@ -90,14 +92,16 @@ public class RegisterController {
             return "registerHost";
         } else {
             String serial = BCrypt.hashpw(u.getPassword(), BCrypt.gensalt(12));
-            EmailConfirmation.sendConfirmationEmail(u.getEmail(), serial);
             usersService.insertHost(u);
+            u=usersService.findById(u);
+            activationService.insertActivation(u, serial);
+            EmailConfirmation.sendConfirmationEmail(u.getEmail(), serial);
         }
         return "redirect:/welcome";
     }
     
-    @GetMapping("/activation")
-    public String activation(ModelMap mm, @PathVariable String serial){
+   @GetMapping("activation/{serial}")
+    public String activation(ModelMap mm, @PathVariable("serial") String serial){
         boolean success=false;
         success=activationService.activateUser(serial);
         if (success) {
@@ -105,5 +109,4 @@ public class RegisterController {
         }else
             return "fail";
     }
-
 }

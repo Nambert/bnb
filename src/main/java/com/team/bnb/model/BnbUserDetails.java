@@ -53,7 +53,11 @@ public class BnbUserDetails extends Users implements UserDetails{
 
     @Override
     public boolean isEnabled() {
-       return true;
+        if (super.getActive()==1){
+           return true;
+       }else{
+           return false;
+       }
     }
 
     public BnbUserDetails(Users user) {
