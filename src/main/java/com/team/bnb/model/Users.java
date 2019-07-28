@@ -65,6 +65,7 @@ public class Users implements Serializable {
     @Column(name = "lastname")
     private String lastname;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -170,6 +171,24 @@ public class Users implements Serializable {
         this.rolesCollection = user.getRolesCollection();
     }
 
+
+    public Integer getActive() {
+        return active;
+    }
+
+    public void setActive(Integer active) {
+        this.active = active;
+    }
+
+    @XmlTransient
+    public Collection<Activation> getActivationCollection() {
+        return activationCollection;
+    }
+
+    public void setActivationCollection(Collection<Activation> activationCollection) {
+        this.activationCollection = activationCollection;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -216,23 +235,6 @@ public class Users implements Serializable {
 
     public void setBalance(int balance) {
         this.balance = balance;
-    }
-
-    public Integer getActive() {
-        return active;
-    }
-
-    public void setActive(Integer active) {
-        this.active = active;
-    }
-
-    @XmlTransient
-    public Collection<Activation> getActivationCollection() {
-        return activationCollection;
-    }
-
-    public void setActivationCollection(Collection<Activation> activationCollection) {
-        this.activationCollection = activationCollection;
     }
     
 }

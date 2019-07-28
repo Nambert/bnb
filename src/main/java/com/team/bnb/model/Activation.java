@@ -49,8 +49,6 @@ public class Activation implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "serial")
     private String serial;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
@@ -65,10 +63,9 @@ public class Activation implements Serializable {
         this.id = id;
     }
 
-    public Activation(Integer id, String serial, Date date) {
+    public Activation(Integer id, String serial) {
         this.id = id;
         this.serial = serial;
-        this.date = date;
     }
 
     public Integer getId() {
