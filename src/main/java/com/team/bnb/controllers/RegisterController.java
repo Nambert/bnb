@@ -7,6 +7,7 @@ package com.team.bnb.controllers;
 
 import com.team.bnb.model.Users;
 import com.team.bnb.repositories.UsersRepository;
+import com.team.bnb.security.EmailConfirmation;
 import com.team.bnb.services.UsersService;
 import com.team.bnb.validators.UsersValidator;
 import javax.validation.Valid;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -63,7 +65,8 @@ public class RegisterController {
         if (br.hasErrors()) {
             return "registerClient";
         } else {
-            String encodedPassword = BCrypt.hashpw(u.getPassword(), BCrypt.gensalt(12));
+            String serial = BCrypt.hashpw(u.getPassword(), BCrypt.gensalt(12));
+            EmailConfirmation.sendConfirmationEmail(u.getEmail(), serial);
             usersService.insertClient(u);
         }
         return "redirect:/welcome";
@@ -82,10 +85,20 @@ public class RegisterController {
         if (br.hasErrors()) {
             return "registerHost";
         } else {
-            String encodedPassword = BCrypt.hashpw(u.getPassword(), BCrypt.gensalt(12));
+            String serial = BCrypt.hashpw(u.getPassword(), BCrypt.gensalt(12));
+            EmailConfirmation.sendConfirmationEmail(u.getEmail(), serial);
             usersService.insertHost(u);
         }
         return "redirect:/welcome";
+    }
+    
+    @GetMapping("/activation")
+    public String activation(ModelMap mm, @PathVariable String serial){
+        boolean succes=false;
+        if (succes) {
+            return "succes";
+        }else
+            return "fail";
     }
 
 }

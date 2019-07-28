@@ -36,4 +36,9 @@ public class UsersService {
         usersRepository.save(u);
         usersRepository.insertToUserRole(u.getId(), 3);
     }
+    
+    public void activateUser(Users u){
+        usersRepository.activateUser(u.getId());
+    }
+    
 }

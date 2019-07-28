@@ -27,4 +27,9 @@ public interface UsersRepository extends JpaRepository<Users,Integer>{
     @Modifying
     @Query(value = "insert into user_role (user_id, role_id) values(:user_id, :role_id)", nativeQuery = true)
     public void insertToUserRole(@Param("user_id") int user_id, @Param("role_id") int role_id);
+    
+    @Transactional
+    @Modifying
+    @Query(value = "insert into users (active) values(1) where id=:id", nativeQuery = true)
+    public void activateUser(@Param("id") int id);
 }

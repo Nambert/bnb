@@ -44,7 +44,7 @@ public class EmailConfirmation {
             // -- Set the FROM and TO fields --
             msg.setFrom(new InternetAddress("bnbteamproject@gmail.com"));
             msg.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse("recipient", false));
+                    InternetAddress.parse(recipient, false));
             msg.setSubject("Confirm your registration at bnb");
             msg.setText("http://localhost:8080/bnb/activation/"+serial);
             msg.setSentDate(new Date());
