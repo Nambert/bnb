@@ -24,7 +24,9 @@ public class ActivationService {
     
     public void insertActivation(Users u, String string){
         Activation activation= new Activation();
-        activation.setUserId(u.getId());
+        activation.setUserId(u);
+        activation.setSerial(string);
+        activationRepository.save(activation);
         
     }
     
