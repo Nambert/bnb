@@ -8,6 +8,7 @@ package com.team.bnb.controllers;
 import com.team.bnb.model.Users;
 import com.team.bnb.repositories.UsersRepository;
 import com.team.bnb.security.EmailConfirmation;
+import com.team.bnb.services.ActivationService;
 import com.team.bnb.services.UsersService;
 import com.team.bnb.validators.UsersValidator;
 import javax.validation.Valid;
@@ -40,6 +41,9 @@ public class RegisterController {
 
     @Autowired
     UsersValidator usersValidator;
+    
+    @Autowired
+    ActivationService activationService;
 
 //    @PreAuthorize("hasAnyRole('ADMIN')")
 //    @GetMapping("/secured/all")
@@ -94,9 +98,10 @@ public class RegisterController {
     
     @GetMapping("/activation")
     public String activation(ModelMap mm, @PathVariable String serial){
-        boolean succes=false;
-        if (succes) {
-            return "succes";
+        boolean success=false;
+        success=activationService.activateUser(serial);
+        if (success) {
+            return "success";
         }else
             return "fail";
     }
