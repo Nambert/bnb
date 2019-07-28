@@ -26,61 +26,34 @@
         <script async custom-element="amp-date-picker" src="https://cdn.ampproject.org/v0/amp-date-picker-0.1.js"></script>
     </head>
     <body>
-<div class="split-row">
-    <input type="hidden" name="form[data][2][0]" value="Date" id="form[data][3][0]-form1-v" data-form-field="">
-    <div class="date-picker-wrap">
-        <amp-date-picker type="single" mode="overlay" layout="container" open-after-select="" input-selector=".input-date4" format="YYYY-MM-DD" locale="en" min="2018-08-01" max="2028-12-30">
-            <input name="form[data][2][1]" class="input-date4" data-form-field="Date" placeholder="Date" required="" id="form[data][3][1]-form1-v">
-        </amp-date-picker>
-    </div>
 
-    <input type="hidden" name="form[data][3][0]" value="Time" id="form[data][4][0]-form1-v" data-form-field="">
-    <input type="time" value="13:30" class="timepicker" name="form[data][3][1]" data-form-field="Time" placeholder="Time" required="" min="08:00" max="18:00" step="1800" id="form[data][4][1]-form1-v">
-</div>
-        <table>
-            <tr>
-                <th>
-                    Address
-                </th>
-                <th>
-                    Postal Code
-                </th>
-                <th>
-                    Available Space
-                </th>
-            </tr>
-            <c:forEach var="storages" items="${storages}">
-                <tr>
-                    <td>${storages.adress}</td>
-                    <td>${storages.postalCode}</td>
-                    <td>${storages.space}</td>
-                </tr> 
-            </c:forEach>
-        </table>
+ 
         <form:form method="POST" modelAttribute="reservation" action="${pageContext.request.contextPath}/client/reserveSlot">
             <table>
                 <tr>
-                    <td>Start</td>
-                    <td><form:input path="start" /></td>
-                </tr>
+                <div class="split-row">
+
+                    <div class="date-picker-wrap">
+                        <amp-date-picker type="single" mode="overlay" layout="container" open-after-select="" input-selector=".input-date4" format="YYYY-MM-DD" locale="en" min="2018-08-01" max="2028-12-30">
+                            <input name="date" class="input-date4"  data-form-field="Date" placeholder="Date" required="" id="form[data][3][1]-form1-v">
+                        </amp-date-picker>
+                    </div>
+
+                   
+                    <input type="time" class="timepicker" name="timepicker" data-form-field="Time" placeholder="Time" required="" min="08:00" max="18:00" step="1800" id="form[data][4][1]-form1-v">
+                </div>
+
+
                 <tr>
-                    <td>End</td>
-                    <td><form:input path="end" /></td>
-                </tr>
-                <tr>
-                    <td>Amount</td>
-                    <td><form:input path="amount" /></td>
-                </tr>
-                <tr>
-                    <td>Cost</td>
-                    <td><form:input path="cost" /></td>
-                </tr>
-                <tr>
+                    <td>
                     <form:select path="storageId">
                         <form:option value="-1">Select shop</form:option>
-                        <form:options items="${storages}" itemLabel="${storages.adress}" itemValue="${storages.id}" />
+                        <form:options items="${storages}" itemLabel="adress" itemValue="id" />
                     </form:select>
+                    </td>
+                    <td id="amount"></td>
                 </tr>
+                <form:hidden path="clientId" value="${id}"></form:hidden>
             </table>
         <tr><input type="submit"></tr>
 
