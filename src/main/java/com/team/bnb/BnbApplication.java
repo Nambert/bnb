@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
-@ComponentScan(value = "com.team.bnb.services,com.team.bnb.controllers,com.team.bnb.security,com.team.bnb.model,com.bnb.team.repositories,com.team.bnb.validators")
+@ComponentScan(value = "com.team.bnb.services,com.team.bnb.controllers,com.team.bnb.security,com.team.bnb.model,com.bnb.team.repositories,com.team.bnb.utils,com.team.bnb.validators")
 public class BnbApplication {
 
 	public static void main(String[] args) {

@@ -43,15 +43,6 @@ public class RegisterController {
     @Autowired
     ActivationService activationService;
 
-//    @PreAuthorize("hasAnyRole('ADMIN')")
-//    @GetMapping("/secured/all")
-//    public String secured(){
-//    return "welcome";}
-    @GetMapping("/welcome")
-    public String welcome() {
-
-        return "welcome";
-    }
 
     @RequestMapping(value = "registerClient", method = RequestMethod.GET)
     public String insertUser(ModelMap mm) {
@@ -74,7 +65,7 @@ public class RegisterController {
             activationService.insertActivation(u, serial);
             EmailConfirmation.sendConfirmationEmail(u.getEmail(), serial);
         }
-        return "redirect:/welcome";
+        return "redirect:/index";
     }
 
     @RequestMapping(value = "registerHost", method = RequestMethod.GET)
@@ -98,7 +89,7 @@ public class RegisterController {
             activationService.insertActivation(u, serial);
             EmailConfirmation.sendConfirmationEmail(u.getEmail(), serial);
         }
-        return "redirect:/welcome";
+        return "redirect:/index";
     }
 
     @GetMapping("activation/{serial}")
@@ -106,7 +97,7 @@ public class RegisterController {
         boolean success = false;
         success = activationService.activateUser(serial);
         if (success) {
-            return "success";
+            return "redirect:/login";
         } else {
             return "fail";
         }

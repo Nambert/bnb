@@ -6,6 +6,7 @@
 package com.team.bnb.model;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -49,12 +50,12 @@ public class Reservations implements Serializable {
     @NotNull
     @Column(name = "start")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date start;
+    private Calendar start;
     @Basic(optional = false)
     @NotNull
     @Column(name = "end")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date end;
+    private Calendar end;
     @Basic(optional = false)
     @NotNull
     @Column(name = "amount")
@@ -76,7 +77,7 @@ public class Reservations implements Serializable {
         this.id = id;
     }
 
-    public Reservations(Integer id, Date start, Date end, int amount) {
+    public Reservations(Integer id, Calendar start, Calendar end, int amount) {
         this.id = id;
         this.start = start;
         this.end = end;
@@ -91,19 +92,19 @@ public class Reservations implements Serializable {
         this.id = id;
     }
 
-    public Date getStart() {
+    public Calendar getStart() {
         return start;
     }
 
-    public void setStart(Date start) {
+    public void setStart(Calendar start) {
         this.start = start;
     }
 
-    public Date getEnd() {
+    public Calendar getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(Calendar end) {
         this.end = end;
     }
 
