@@ -35,7 +35,7 @@
     </div>
 
     <input type="hidden" name="form[data][3][0]" value="Time" id="form[data][4][0]-form1-v" data-form-field="">
-    <input type="time" class="timepicker" name="form[data][3][1]" data-form-field="Time" placeholder="Time" required="" min="08:00" max="18:00" step="1800" id="form[data][4][1]-form1-v">
+    <input type="time" value="13:30" class="timepicker" name="form[data][3][1]" data-form-field="Time" placeholder="Time" required="" min="08:00" max="18:00" step="1800" id="form[data][4][1]-form1-v">
 </div>
         <table>
             <tr>
@@ -60,20 +60,20 @@
         <form:form method="POST" modelAttribute="reservation" action="${pageContext.request.contextPath}/client/reserveSlot">
             <table>
                 <tr>
-                    <td>USERNAME</td>
-                    <td><form:input path="username" /></td>
+                    <td>Start</td>
+                    <td><form:input path="start" /></td>
                 </tr>
                 <tr>
-                    <td>PASSWORD</td>
-                    <td><form:input path="password" /></td>
+                    <td>End</td>
+                    <td><form:input path="end" /></td>
                 </tr>
                 <tr>
-                    <td>FIRSTNAME</td>
-                    <td><form:input path="firstname" /></td>
+                    <td>Amount</td>
+                    <td><form:input path="amount" /></td>
                 </tr>
                 <tr>
-                    <td>LASTNAME</td>
-                    <td><form:input path="lastname" /></td>
+                    <td>Cost</td>
+                    <td><form:input path="cost" /></td>
                 </tr>
                 <tr>
                     <form:select path="storageId">
