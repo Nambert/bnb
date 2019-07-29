@@ -54,8 +54,8 @@ public class BnbUserDetails extends Users implements UserDetails{
 
     @Override
     public boolean isEnabled() {
-//         return getActive()==1;
-           return true;
+         return getActive()==1;
+//           return true;
        
     }
 

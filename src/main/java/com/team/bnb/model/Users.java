@@ -169,6 +169,7 @@ public class Users implements Serializable {
         this.email = user.getEmail();
         this.balance = user.getBalance();
         this.rolesCollection = user.getRolesCollection();
+        this.active=user.getActive();
     }
 
 
