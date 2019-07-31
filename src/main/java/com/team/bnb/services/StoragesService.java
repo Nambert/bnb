@@ -9,7 +9,9 @@ package com.team.bnb.services;
 import com.team.bnb.model.Storages;
 import com.team.bnb.repositories.StoragesRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoProperties.Storage;
 import org.springframework.stereotype.Service;
 
 /**
@@ -41,4 +43,10 @@ public class StoragesService {
         List<Storages> storages = storagesRepository.findByOwnerId(owner_id);
         return storages;
     }
+
+    public Storages viewStorageByid(Storages storageId) {
+        Storages storage = storagesRepository.findByStorageId(storageId);
+        return storage;
+    }
+
 }

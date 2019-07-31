@@ -8,6 +8,8 @@ package com.team.bnb.utils;
 import com.team.bnb.controllers.ClientController;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
@@ -34,6 +36,10 @@ public class DateParsing {
         return cal;
     }
     
-    
+     public Date convertToDateViaInstant(LocalDateTime dateToConvert) {
+        return java.util.Date
+                .from(dateToConvert.atZone(ZoneId.systemDefault())
+                        .toInstant());
+    }
 
 }

@@ -19,5 +19,16 @@ public class ClientService {
     @Autowired
     StoragesRepository storagesRepository;
     
-    
+    public double calculateCost(int hours, int amount) {
+        if (hours < 6) {
+            double cost = hours * amount * 1.2;
+            return cost;
+        } else if (hours < 12) {
+            double cost = hours * amount * 1;
+            return cost;
+        } else {
+            double cost = hours * amount*0.5;
+            return cost;
+        }
+    }
 }

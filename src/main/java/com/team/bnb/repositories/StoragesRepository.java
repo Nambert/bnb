@@ -17,11 +17,14 @@ import org.springframework.stereotype.Repository;
  * @author Kosta
  */
 @Repository
-public interface StoragesRepository extends JpaRepository<Storages,Integer>{
-    
-    @Query(value="select * from storages where city_id=:city_id",nativeQuery = true)
-    List<Storages> findBycityId(@Param("city_id")int city_id);
-    
-    @Query(value="select * from storages where owner_id=:owner_id",nativeQuery = true)
+public interface StoragesRepository extends JpaRepository<Storages, Integer> {
+
+    @Query(value = "select * from storages where city_id=:city_id", nativeQuery = true)
+    List<Storages> findBycityId(@Param("city_id") int city_id);
+
+    @Query(value = "select * from storages where owner_id=:owner_id", nativeQuery = true)
     List<Storages> findByOwnerId(@Param("owner_id") int owner_id);
+
+    @Query(value = "select * from storages where id=:storageId", nativeQuery = true)
+    Storages findByStorageId(@Param("storageId") Storages storageId);
 }

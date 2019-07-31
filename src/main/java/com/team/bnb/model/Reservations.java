@@ -50,12 +50,12 @@ public class Reservations implements Serializable {
     @NotNull
     @Column(name = "start")
     @Temporal(TemporalType.TIMESTAMP)
-    private Calendar start;
+    private Date start;
     @Basic(optional = false)
     @NotNull
     @Column(name = "end")
     @Temporal(TemporalType.TIMESTAMP)
-    private Calendar end;
+    private Date end;
     @Basic(optional = false)
     @NotNull
     @Column(name = "amount")
@@ -77,7 +77,7 @@ public class Reservations implements Serializable {
         this.id = id;
     }
 
-    public Reservations(Integer id, Calendar start, Calendar end, int amount) {
+    public Reservations(Integer id, Date start, Date end, int amount) {
         this.id = id;
         this.start = start;
         this.end = end;
@@ -92,19 +92,19 @@ public class Reservations implements Serializable {
         this.id = id;
     }
 
-    public Calendar getStart() {
+    public Date getStart() {
         return start;
     }
 
-    public void setStart(Calendar start) {
+    public void setStart(Date start) {
         this.start = start;
     }
 
-    public Calendar getEnd() {
+    public Date getEnd() {
         return end;
     }
 
-    public void setEnd(Calendar end) {
+    public void setEnd(Date end) {
         this.end = end;
     }
 

@@ -65,7 +65,7 @@ public class RegisterController {
             activationService.insertActivation(u, serial);
             EmailConfirmation.sendConfirmationEmail(u.getEmail(), serial);
         }
-        return "redirect:/index";
+        return "successRegister";
     }
 
     @RequestMapping(value = "registerHost", method = RequestMethod.GET)
@@ -89,7 +89,7 @@ public class RegisterController {
             activationService.insertActivation(u, serial);
             EmailConfirmation.sendConfirmationEmail(u.getEmail(), serial);
         }
-        return "redirect:/index";
+        return "successRegister";
     }
 
     @GetMapping("activation/{serial}")

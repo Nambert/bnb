@@ -27,11 +27,10 @@
     </head>
     <body>
 
- 
-        <form:form method="POST" modelAttribute="reservation" action="${pageContext.request.contextPath}/client/reserveSlot">
+
+        <form:form method="POST" modelAttribute="reservation" action="${pageContext.request.contextPath}/client/prepareReservation">
             <table>
-                <tr>
-                <div class="split-row">
+                <tr>                <div class="split-row">
 
                     <div class="date-picker-wrap">
                         <amp-date-picker type="single" mode="overlay" layout="container" open-after-select="" input-selector=".input-date4" format="YYYY-MM-DD" locale="en" min="2018-08-01" max="2028-12-30">
@@ -39,25 +38,40 @@
                         </amp-date-picker>
                     </div>
 
-                   
+
                     <input type="time" class="timepicker" name="timepicker" data-form-field="Time" placeholder="Time" required="" min="08:00" max="18:00" step="1800" id="form[data][4][1]-form1-v">
                 </div>
 
 
                 <tr>
                     <td>
-                    <form:select path="storageId">
-                        <form:option value="-1">Select shop</form:option>
-                        <form:options items="${storages}" itemLabel="adress" itemValue="id" />
-                    </form:select>
+                        <form:select path="storageId">
+                            <form:option value="-1">Select shop</form:option>
+                            <form:options items="${storages}" itemLabel="adress" itemValue="id" />
+                        </form:select>
                     </td>
-                    <td id="amount"></td>
+
                 </tr>
+                <tr>
+                    <td>
+                        <input type="number" name="hours">
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="amount"></td>
+                </tr>
+
                 <form:hidden path="clientId" value="${id}"></form:hidden>
-            </table>
-        <tr><input type="submit"></tr>
+                </table>
+            <tr><input type="submit"></tr>
 
 </form:form>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+    <input type="hidden" name="cmd" value="_s-xclick" />
+    <input type="hidden" name="hosted_button_id" value="UW2CKN33ZR3PE" />
+    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+    <img alt="" border="0" src="https://www.paypal.com/en_GR/i/scr/pixel.gif" width="1" height="1" />
+</form>
 
 </body>
 </html>

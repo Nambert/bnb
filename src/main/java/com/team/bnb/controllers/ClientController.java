@@ -11,15 +11,20 @@ import com.team.bnb.model.Reservations;
 import com.team.bnb.model.Users;
 import com.team.bnb.repositories.StoragesRepository;
 import com.team.bnb.services.BnbUsersDetailService;
+import com.team.bnb.services.ClientService;
 import com.team.bnb.services.ReservationsService;
 import com.team.bnb.services.StoragesService;
 import com.team.bnb.utils.DateParsing;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpServletRequest;
 import static org.apache.tomcat.jni.User.username;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -48,6 +53,9 @@ public class ClientController {
 
     @Autowired
     ReservationsService reservationsService;
+    
+    @Autowired
+    ClientService clientService;
 
     @Autowired
     DateParsing dateParsing;
@@ -66,19 +74,29 @@ public class ClientController {
         return "client";
     }
 
-    @RequestMapping(value = "/reserveSlot", method = RequestMethod.POST)
-    public String reserveSlot(ModelMap mm, WebRequest request, @ModelAttribute("reservation") Reservations reservation) {
+    @RequestMapping(value = "/prepareReservation", method = RequestMethod.POST)
+    public String infoGathering(ModelMap model, WebRequest request, @ModelAttribute("reservation") Reservations reservation, HttpServletRequest session) {
+        LocalTime mytime = LocalTime.parse(request.getParameter("timepicker"));
+        LocalDate localdate = LocalDate.parse(request.getParameter("date"));
+        LocalDateTime ldt = localdate.atTime(mytime);
+        int hours1 = Integer.parseInt(request.getParameter("hours"));
+        int amount = Integer.parseInt(request.getParameter("amount"));
+        LocalDateTime end = ldt.plusHours(hours1);
+        Date start = dateParsing.convertToDateViaInstant(ldt);
+        Date endtime = dateParsing.convertToDateViaInstant(end);
+        reservation.setStart(start);
+        reservation.setEnd(endtime);
+        reservation.setCost(clientService.calculateCost(hours1, amount));
+        reservation.setAmount(amount);
+        model.addAttribute("reservation", reservation);
+        session.getSession().setAttribute("finalize", reservation);
+        model.addAttribute("storage", storagesService.viewStorageByid(reservation.getStorageId()));
+        return "doReservation";
+    }
 
-        String date = request.getParameter("date") + " " + request.getParameter("timepicker") + ":00";
-       Calendar start= dateParsing.parseString(date);
-      reservation.setStart(start);
-      
-       Calendar end=reservationsService.calculateEndDate(start, 5);
-       reservation.setEnd(end);
-      reservation.setAmount(2);
-      reservation.setCost(30.0);
-      reservationsService.insertReservation(reservation);
-      
+    @RequestMapping(value = "/doReserve", method = RequestMethod.POST)
+    public String reserveSlot(ModelMap model, @ModelAttribute("reservation") Reservations reservation, HttpServletRequest request) {
+        reservationsService.insertReservation((Reservations) request.getSession().getAttribute("finalize"));
         return "client";
     }
 }
