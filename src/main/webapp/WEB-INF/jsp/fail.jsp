@@ -1,9 +1,9 @@
 <%-- 
-    Document   : index
-    Created on : Jul 8, 2019, 3:49:46 PM
-    Author     : Haris
+    Document   : fail
+    Created on : Jul 28, 2019, 3:21:37 PM
+    Author     : Kosta
 --%>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <a href="${pageContext.request.contextPath}/welcome">Welcome</a>
+        <h1>Fail</h1>
     </body>
 </html>

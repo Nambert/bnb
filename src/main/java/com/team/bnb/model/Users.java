@@ -6,7 +6,9 @@
 package com.team.bnb.model;
 
 import java.io.Serializable;
+
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -42,19 +44,13 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Users.findByLastname", query = "SELECT u FROM Users u WHERE u.lastname = :lastname")})
 public class Users implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "username")
     private String username;
     @Basic(optional = false)
-    @NotNull
+    @NotNull()
     @Size(min = 1, max = 100)
     @Column(name = "password")
     private String password;
@@ -68,8 +64,29 @@ public class Users implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "lastname")
     private String lastname;
-    @ManyToMany(mappedBy = "usersCollection",fetch = FetchType.EAGER)
-    private Set<Roles> rolesCollection;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "email")
+    private String email;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "balance")
+    private int balance;
+    @Column(name = "active")
+    private Integer active;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Collection<Activation> activationCollection;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
+    @ManyToMany(mappedBy = "usersCollection", fetch = FetchType.EAGER)
+    private List<Roles> rolesCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ownerId")
     private Collection<Storages> storagesCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientId")
@@ -82,7 +99,6 @@ public class Users implements Serializable {
         this.id = id;
     }
 
-
     public Integer getId() {
         return id;
     }
@@ -91,44 +107,13 @@ public class Users implements Serializable {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
 
     @XmlTransient
-    public Set<Roles> getRolesCollection() {
+    public List<Roles> getRolesCollection() {
         return rolesCollection;
     }
 
-    public void setRolesCollection(Set<Roles> rolesCollection) {
+    public void setRolesCollection(List<Roles> rolesCollection) {
         this.rolesCollection = rolesCollection;
     }
 
@@ -174,14 +159,83 @@ public class Users implements Serializable {
     public String toString() {
         return "com.team.bnb.model.Users[ id=" + id + " ]";
     }
-    
+
     public Users(Users user) {
         this.id = user.getId();
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.firstname = user.getFirstname();
         this.lastname = user.getLastname();
-        this.rolesCollection=user.getRolesCollection();
+        this.email = user.getEmail();
+        this.balance = user.getBalance();
+        this.rolesCollection = user.getRolesCollection();
+        this.active=user.getActive();
+    }
+
+
+    public Integer getActive() {
+        return active;
+    }
+
+    public void setActive(Integer active) {
+        this.active = active;
+    }
+
+    @XmlTransient
+    public Collection<Activation> getActivationCollection() {
+        return activationCollection;
+    }
+
+    public void setActivationCollection(Collection<Activation> activationCollection) {
+        this.activationCollection = activationCollection;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
     }
     
 }

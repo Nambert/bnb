@@ -34,12 +34,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Cities.findByName", query = "SELECT c FROM Cities c WHERE c.name = :name")})
 public class Cities implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "id")
-    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -47,6 +41,13 @@ public class Cities implements Serializable {
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityId")
     private Collection<Storages> storagesCollection;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id")
+    private Integer id;
 
     public Cities() {
     }
@@ -68,22 +69,6 @@ public class Cities implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @XmlTransient
-    public Collection<Storages> getStoragesCollection() {
-        return storagesCollection;
-    }
-
-    public void setStoragesCollection(Collection<Storages> storagesCollection) {
-        this.storagesCollection = storagesCollection;
-    }
 
     @Override
     public int hashCode() {
@@ -108,6 +93,23 @@ public class Cities implements Serializable {
     @Override
     public String toString() {
         return "com.team.bnb.model.Cities[ id=" + id + " ]";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @XmlTransient
+    public Collection<Storages> getStoragesCollection() {
+        return storagesCollection;
+    }
+
+    public void setStoragesCollection(Collection<Storages> storagesCollection) {
+        this.storagesCollection = storagesCollection;
     }
     
 }
