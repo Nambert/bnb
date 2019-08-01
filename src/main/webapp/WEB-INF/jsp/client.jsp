@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Client Page</title>
-        
+
     </head>
     <body>
         <h1>Hello ${username}!</h1><br>
@@ -26,5 +26,12 @@
                    value="${_csrf.token}" />
         </form>
         <a href="#" onclick="document.getElementById('logout').submit();">Logout</a>
+
+        <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_s-xclick" />
+            <input type="hidden" name="hosted_button_id" value="F9U24WQZFMHNN" />
+            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+            <img alt="" border="0" src="https://www.sandbox.paypal.com/en_GR/i/scr/pixel.gif" width="1" height="1" />
+        </form>
     </body>
 </html>
