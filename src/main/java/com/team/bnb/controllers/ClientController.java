@@ -105,5 +105,7 @@ public class ClientController {
     public String viewMyStorages(ModelMap mm,HttpServletRequest session){
    List<Reservations> reservations=reservationsService.viewReservationsByOwner((int) session.getSession().getAttribute("id"));
    mm.addAttribute("myreservations", reservations);
+   List<Storages> storages=storagesService.viewStoragesByOwner((int) session.getSession().getAttribute("id"));
+   mm.addAttribute("storages", storages);
     return "viewMyReservations";}
 }
