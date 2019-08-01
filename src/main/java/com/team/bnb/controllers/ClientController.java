@@ -8,6 +8,7 @@ package com.team.bnb.controllers;
 
 import com.team.bnb.model.BnbUserDetails;
 import com.team.bnb.model.Reservations;
+import com.team.bnb.model.Storages;
 import com.team.bnb.model.Users;
 import com.team.bnb.repositories.StoragesRepository;
 import com.team.bnb.services.BnbUsersDetailService;
@@ -22,6 +23,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
@@ -99,4 +101,9 @@ public class ClientController {
         reservationsService.insertReservation((Reservations) request.getSession().getAttribute("finalize"));
         return "client";
     }
+    @RequestMapping(value = "viewMyReservations",method = RequestMethod.GET)
+    public String viewMyStorages(ModelMap mm,HttpServletRequest session){
+   List<Reservations> reservations=reservationsService.viewReservationsByOwner((int) session.getSession().getAttribute("id"));
+   mm.addAttribute("myreservations", reservations);
+    return "viewMyReservations";}
 }

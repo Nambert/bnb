@@ -6,8 +6,10 @@
 package com.team.bnb.services;
 
 import com.team.bnb.model.Reservations;
+import com.team.bnb.model.Storages;
 import com.team.bnb.repositories.ReservationsRepository;
 import java.util.Calendar;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +27,8 @@ public class ReservationsService {
         reservationsRepository.save(reservations);
     }
 
-    public Calendar calculateEndDate(Calendar calendar, int hours) {
-        calendar.add(Calendar.HOUR_OF_DAY, hours);
-        return calendar;
+     public List<Reservations> viewReservationsByOwner(int owner_id) {
+        List<Reservations> reservations = reservationsRepository.findByOwnerId(owner_id);
+        return reservations;
     }
 }
