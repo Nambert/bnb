@@ -13,7 +13,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello ${id}!</h1>
+        <h1>Hello ${username}!</h1>
         <a href="${pageContext.request.contextPath}/host/insertCity">Insert City</a>
         <a href="${pageContext.request.contextPath}/host/createStorage">Create Storage</a>
         <a href="${pageContext.request.contextPath}/host/viewCities">View Cities</a><br>

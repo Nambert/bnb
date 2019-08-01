@@ -20,6 +20,7 @@
         <h3>Choose City</h3>
         <a href="${pageContext.request.contextPath}/client/1">Athens</a>
         <a href="${pageContext.request.contextPath}/client/3">Thessaloniki</a>
+        <a href="${pageContext.request.contextPath}/client/viewMyReservations">View my reservations</a>
         <c:url var="logoutUrl" value="/j_spring_security_logout" />
         <form action="${logoutUrl}" id="logout" method="post">
             <input type="hidden" name="${_csrf.parameterName}"

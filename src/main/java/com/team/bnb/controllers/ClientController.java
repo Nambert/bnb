@@ -55,7 +55,7 @@ public class ClientController {
 
     @Autowired
     ReservationsService reservationsService;
-    
+
     @Autowired
     ClientService clientService;
 
@@ -101,11 +101,19 @@ public class ClientController {
         reservationsService.insertReservation((Reservations) request.getSession().getAttribute("finalize"));
         return "client";
     }
-    @RequestMapping(value = "viewMyReservations",method = RequestMethod.GET)
-    public String viewMyStorages(ModelMap mm,HttpServletRequest session){
-   List<Reservations> reservations=reservationsService.viewReservationsByOwner((int) session.getSession().getAttribute("id"));
-   mm.addAttribute("myreservations", reservations);
-   List<Storages> storages=storagesService.viewStoragesByOwner((int) session.getSession().getAttribute("id"));
-   mm.addAttribute("storages", storages);
-    return "viewMyReservations";}
+
+    @RequestMapping(value = "viewMyReservations", method = RequestMethod.GET)
+    public String viewMyStorages(ModelMap mm, HttpServletRequest session) {
+        List<Reservations> reservations = reservationsService.viewReservationsByOwner((int) session.getSession().getAttribute("id"));
+        mm.addAttribute("myreservations", reservations);
+        List<Storages> storages = storagesService.viewStoragesByOwner((int) session.getSession().getAttribute("id"));
+        mm.addAttribute("storages", storages);
+        return "viewMyReservations";
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String delete(ModelMap mm, @PathVariable("id") int id) {
+        reservationsService.deleteById(id);
+        return "redirect:/viewMyReservations";
+    }
 }

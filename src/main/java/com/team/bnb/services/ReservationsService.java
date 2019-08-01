@@ -31,4 +31,8 @@ public class ReservationsService {
         List<Reservations> reservations = reservationsRepository.findByOwnerId(owner_id);
         return reservations;
     }
+
+    public void deleteById(int id) {
+        reservationsRepository.deleteById(id);
+    }
 }

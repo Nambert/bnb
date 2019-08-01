@@ -23,12 +23,18 @@
                 <th>
                     Available Space
                 </th>
+                <th>
+                    Delete
+                </th>
             </tr>
             <c:forEach var="storages" items="${mystorages}">
                 <tr>
                     <td>${storages.adress}</td>
                     <td>${storages.postalCode}</td>
                     <td>${storages.space}</td>
+                    <td>
+                        <button><a href="${pageContext.request.contextPath}/host/delete/${storages.id}">Delete</a></button>
+                    </td>
                 </tr> 
             </c:forEach>
         </table>

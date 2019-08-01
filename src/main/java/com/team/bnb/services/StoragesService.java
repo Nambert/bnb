@@ -49,4 +49,7 @@ public class StoragesService {
         return storage;
     }
 
+    public void deleteById(int id) {
+        storagesRepository.deleteById(id);
+    }
 }

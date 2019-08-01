@@ -19,6 +19,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ReservationsRepository extends JpaRepository<Reservations, Integer>{
-    @Query(value = "select * from reservations where owner_id=:owner_id", nativeQuery = true)
-    List<Reservations> findByOwnerId(@Param("owner_id") int owner_id);
+    @Query(value = "select * from reservations where client_id=:client_id", nativeQuery = true)
+    List<Reservations> findByOwnerId(@Param("client_id") int client_id);
 }

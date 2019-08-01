@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Create Storage</h1>
-        <form:form method="POST" modelAttribute="storage" action="${pageContext.request.contextPath}/doCreateStorage">
+        <form:form method="POST" modelAttribute="storage" action="${pageContext.request.contextPath}/host/doCreateStorage">
             <table>
                 <tr>
                     <td>ADDRESS</td>
