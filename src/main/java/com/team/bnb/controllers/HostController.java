@@ -65,7 +65,7 @@ public class HostController {
     @RequestMapping(value = "doCreateStorage", method = RequestMethod.POST)
     public String doCreateStorage(ModelMap mm, @ModelAttribute("storage") @Valid Storages s) {
         storagesService.insert(s);
-        return "createStorage";
+        return "redirect:/host/viewMyStorages";
     }
 
     @RequestMapping(value = "loadHost", method = RequestMethod.GET)

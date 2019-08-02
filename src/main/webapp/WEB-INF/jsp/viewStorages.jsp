@@ -1,7 +1,7 @@
 <%-- 
     Document   : viewStorages
     Created on : Jul 21, 2019, 1:11:31 PM
-    Author     : Kosta
+    Author     : DaL
 --%>
 
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
